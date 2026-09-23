@@ -1,0 +1,121 @@
+{
+ "n_case_with_age": 570,
+ "n_control_with_age": 608,
+ "median_months_hernia": 60.0,
+ "median_months_control": 96.0,
+ "bands": [
+  {
+   "band": "0-12 mo",
+   "hernia": 21,
+   "control": 18,
+   "ratio": 0.8571428571428571,
+   "shortfall": 3
+  },
+  {
+   "band": "12-24 mo",
+   "hernia": 82,
+   "control": 22,
+   "ratio": 0.2682926829268293,
+   "shortfall": 60
+  },
+  {
+   "band": "2-4 y",
+   "hernia": 127,
+   "control": 31,
+   "ratio": 0.2440944881889764,
+   "shortfall": 96
+  },
+  {
+   "band": "4-6 y",
+   "hernia": 116,
+   "control": 50,
+   "ratio": 0.43103448275862066,
+   "shortfall": 66
+  },
+  {
+   "band": "6-8 y",
+   "hernia": 113,
+   "control": 132,
+   "ratio": 1.168141592920354,
+   "shortfall": 0
+  },
+  {
+   "band": "8-10 y",
+   "hernia": 59,
+   "control": 138,
+   "ratio": 2.3389830508474576,
+   "shortfall": 0
+  },
+  {
+   "band": "10-13 y",
+   "hernia": 40,
+   "control": 184,
+   "ratio": 4.6,
+   "shortfall": 0
+  },
+  {
+   "band": "13y+",
+   "hernia": 12,
+   "control": 33,
+   "ratio": 2.75,
+   "shortfall": 0
+  }
+ ],
+ "total_shortfall_readable": 225,
+ "total_shortfall_scaled": 387,
+ "matching": [
+  {
+   "caliper_months": 3,
+   "pairs": 333,
+   "pairs_under_6y": 118,
+   "unmatched_cases": 237,
+   "abs_smd": 0.00779549309163488
+  },
+  {
+   "caliper_months": 6,
+   "pairs": 333,
+   "pairs_under_6y": 118,
+   "unmatched_cases": 237,
+   "abs_smd": 0.016376591414908964
+  },
+  {
+   "caliper_months": 12,
+   "pairs": 405,
+   "pairs_under_6y": 182,
+   "unmatched_cases": 165,
+   "abs_smd": 0.20484212405563976
+  }
+ ],
+ "sample_size": [
+  {
+   "auc": 0.55,
+   "n80": 522,
+   "n90": 698
+  },
+  {
+   "auc": 0.56,
+   "n80": 362,
+   "n90": 484
+  },
+  {
+   "auc": 0.58,
+   "n80": 203,
+   "n90": 271
+  },
+  {
+   "auc": 0.6,
+   "n80": 130,
+   "n90": 173
+  },
+  {
+   "auc": 0.62,
+   "n80": 90,
+   "n90": 119
+  },
+  {
+   "auc": 0.65,
+   "n80": 57,
+   "n90": 75
+  }
+ ]
+}

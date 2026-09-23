@@ -1,0 +1,34 @@
+\begin{tabular}{lc}
+\toprule
+Quantity & Value \\
+\midrule
+Readable, hernia group & 570 / 981 (58.1\%) \\
+Readable, control group & 608 / 979 (62.1\%) \\
+Readable, CR images & 52.4\% \\
+Readable, DX images & 63.4\% \\
+Readable, examinations in 2024 & 65.4\% \\
+Readable, examinations in 2025 & 55.1\% \\
+Readable, examinations in 2026 & 63.2\% \\
+Unreadable: no overlay text found & 520 \\
+Unreadable: text found but not read & 262 \\
+\midrule
+\multicolumn{2}{l}{\emph{Largest differences, readable minus unreadable (SMD)}} \\
+Middle body area share & +0.78 \\
+Image height & +0.72 \\
+Image width & +0.60 \\
+Thoracic 10th-percentile intensity & -0.52 \\
+Image aspect ratio & -0.51 \\
+Mean thoracic intensity & -0.48 \\
+Hernia group & -0.08 \\
+\midrule
+\multicolumn{2}{l}{\emph{Predicting readability (AUC, 95\% CI)}} \\
+From the 29 image-derived variables & 0.813 (0.793--0.833) \\
+From group membership alone & 0.488 (0.462--0.514) \\
+\midrule
+\multicolumn{2}{l}{\emph{Encoder AUC, readable / unreadable subset}} \\
+BiomedCLIP & 0.720 / 0.688 \\
+TorchXRayVision & 0.711 / 0.689 \\
+RAD-DINO & 0.645 / 0.643 \\
+ImageNet-DenseNet121 & 0.648 / 0.638 \\
+\bottomrule
+\end{tabular}

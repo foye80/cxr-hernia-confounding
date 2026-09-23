@@ -1,0 +1,23 @@
+{
+  "per_variable": {
+    "body_bbox_aspect": 0.8544,
+    "body_bbox_area_frac": 0.7553,
+    "body_bbox_height_frac": 0.7503,
+    "body_bbox_width_frac": 0.7434,
+    "shoulder_width_frac": 0.7424,
+    "upper_body_width_frac": 0.7393,
+    "body_mask_area_frac": 0.7368,
+    "thorax_width_frac": 0.7189,
+    "lower_body_width_frac": 0.6406,
+    "mid_body_width_frac": 0.5911,
+    "thorax_to_lower_width_ratio": 0.1546,
+    "shoulder_to_lower_width_ratio": 0.1405,
+    "mid_body_area_share": 0.0858,
+    "lower_body_area_share": 0.0501,
+    "upper_body_area_share": 0.0164
+  },
+  "median_r2": 0.7189,
+  "max_r2": 0.8544,
+  "n_ge_0.5": 10,
+  "note": "Out-of-fold R^2 predicting each body-geometry variable from the five acquisition attributes."
+}

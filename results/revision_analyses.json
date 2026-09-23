@@ -1,0 +1,558 @@
+{
+ "n": 1960,
+ "build": "rebuilt (fully masked)",
+ "A1_age_missingness": {
+  "n_readable": 1178,
+  "readable_hernia": [
+   570,
+   981
+  ],
+  "readable_control": [
+   608,
+   979
+  ],
+  "unreadable_no_text_found": 520,
+  "unreadable_text_not_read": 262,
+  "rate_hernia": 0.581039755351682,
+  "rate_control": 0.6210418794688458,
+  "smd": [
+   {
+    "variable": "mid_body_area_share",
+    "smd_readable_minus_unreadable": 0.7793970265284517
+   },
+   {
+    "variable": "image_height_px",
+    "smd_readable_minus_unreadable": 0.7203473399628336
+   },
+   {
+    "variable": "image_width_px",
+    "smd_readable_minus_unreadable": 0.6037233153516405
+   },
+   {
+    "variable": "thorax_p10_intensity",
+    "smd_readable_minus_unreadable": -0.5164356419850475
+   },
+   {
+    "variable": "image_aspect",
+    "smd_readable_minus_unreadable": -0.5087518422706954
+   },
+   {
+    "variable": "thorax_mean_intensity",
+    "smd_readable_minus_unreadable": -0.4800012413290551
+   },
+   {
+    "variable": "body_mask_area_frac",
+    "smd_readable_minus_unreadable": -0.4692173614507235
+   },
+   {
+    "variable": "lower_body_width_frac",
+    "smd_readable_minus_unreadable": -0.4144845923077921
+   },
+   {
+    "variable": "body_bbox_area_frac",
+    "smd_readable_minus_unreadable": -0.38022975628709604
+   },
+   {
+    "variable": "body_bbox_height_frac",
+    "smd_readable_minus_unreadable": -0.3709585401290512
+   },
+   {
+    "variable": "shoulder_width_frac",
+    "smd_readable_minus_unreadable": -0.3689507828828284
+   },
+   {
+    "variable": "body_bbox_width_frac",
+    "smd_readable_minus_unreadable": -0.36724374890938777
+   },
+   {
+    "variable": "upper_body_width_frac",
+    "smd_readable_minus_unreadable": -0.3574028700771375
+   },
+   {
+    "variable": "body_bbox_aspect",
+    "smd_readable_minus_unreadable": -0.3363005032162859
+   },
+   {
+    "variable": "thorax_to_lower_width_ratio",
+    "smd_readable_minus_unreadable": 0.2893814910881917
+   },
+   {
+    "variable": "upper_body_area_share",
+    "smd_readable_minus_unreadable": -0.28765857092821717
+   },
+   {
+    "variable": "thorax_width_frac",
+    "smd_readable_minus_unreadable": -0.2786636455426075
+   },
+   {
+    "variable": "thorax_p90_intensity",
+    "smd_readable_minus_unreadable": -0.26813704746850286
+   },
+   {
+    "variable": "modality_cr",
+    "smd_readable_minus_unreadable": -0.21068348833654924
+   },
+   {
+    "variable": "mid_body_width_frac",
+    "smd_readable_minus_unreadable": -0.1950332848590075
+   },
+   {
+    "variable": "exam_days_since_min",
+    "smd_readable_minus_unreadable": -0.16603321246423072
+   },
+   {
+    "variable": "thorax_body_mask_frac",
+    "smd_readable_minus_unreadable": -0.15913227651740727
+   },
+   {
+    "variable": "shoulder_to_lower_width_ratio",
+    "smd_readable_minus_unreadable": 0.14864781367041607
+   },
+   {
+    "variable": "central_lucency_frac",
+    "smd_readable_minus_unreadable": -0.10321813028314318
+   },
+   {
+    "variable": "label_hernia",
+    "smd_readable_minus_unreadable": -0.08344090702651927
+   },
+   {
+    "variable": "lower_body_area_share",
+    "smd_readable_minus_unreadable": 0.0537173793322719
+   },
+   {
+    "variable": "right_lucency_frac",
+    "smd_readable_minus_unreadable": -0.051213287012001264
+   },
+   {
+    "variable": "lucency_lr_asymmetry",
+    "smd_readable_minus_unreadable": 0.04155002819573147
+   },
+   {
+    "variable": "left_lucency_frac",
+    "smd_readable_minus_unreadable": 0.03151882828782725
+   },
+   {
+    "variable": "sex_male",
+    "smd_readable_minus_unreadable": -0.0037706230356398212
+   }
+  ],
+  "n_abs_smd_over_0.1": 24,
+  "max_abs_smd": {
+   "variable": "mid_body_area_share",
+   "smd_readable_minus_unreadable": 0.7793970265284517
+  },
+  "readable_rate_CR": 0.523728813559322,
+  "readable_rate_DX": 0.6343065693430657,
+  "readable_rate_by_year": {
+   "2024": 0.654275092936803,
+   "2025": 0.5509783728115345,
+   "2026": 0.6318681318681318
+  },
+  "predict_readable_auc": {
+   "proxies_29": {
+    "auc": 0.8129659703255332,
+    "ci": [
+     0.7931376438890312,
+     0.8328932713559329
+    ]
+   },
+   "label_only": {
+    "auc": 0.4881718982713777,
+    "ci": [
+     0.46247227788657364,
+     0.5143313420813811
+    ]
+   },
+   "proxies_29_plus_label": {
+    "auc": 0.8141079639946331,
+    "ci": [
+     0.794120740862965,
+     0.834486526211577
+    ]
+   }
+  },
+  "encoder_auc_by_subset": [
+   {
+    "model": "BiomedCLIP",
+    "readable": 0.7197079870729455,
+    "readable_ci": [
+     0.691265798130194,
+     0.7479828168282548
+    ],
+    "unreadable": 0.6883283818967609,
+    "unreadable_ci": [
+     0.6495853581757727,
+     0.7242513821394139
+    ]
+   },
+   {
+    "model": "TorchXRayVision",
+    "readable": 0.7113977377654663,
+    "readable_ci": [
+     0.6818271006463528,
+     0.740443862534626
+    ],
+    "unreadable": 0.6894432748998236,
+    "unreadable_ci": [
+     0.6506945127589666,
+     0.7259470032331896
+    ]
+   },
+   {
+    "model": "RAD-DINO",
+    "readable": 0.6454409048938134,
+    "readable_ci": [
+     0.6152177112188366,
+     0.6752721029547553
+    ],
+    "unreadable": 0.6431489824961799,
+    "unreadable_ci": [
+     0.6054062473357336,
+     0.6807343209973702
+    ]
+   },
+   {
+    "model": "ImageNet-DenseNet121",
+    "readable": 0.6476281163434903,
+    "readable_ci": [
+     0.615917878578024,
+     0.6783560566712834
+    ],
+    "unreadable": 0.6381516385648047,
+    "unreadable_ci": [
+     0.5997966959817946,
+     0.6785440481109122
+    ]
+   }
+  ]
+ },
+ "A2_age_matched": {
+  "pairs": 333,
+  "pairs_case_under_6y": 118,
+  "balance": {
+   "age_smd": -0.00779549309163488,
+   "sex_smd": -0.42939579559715346,
+   "modality_cr_smd": 0.006945743042630843,
+   "image_width_smd": 0.020346806628317206,
+   "image_height_smd": 0.11547059804804166,
+   "exam_days_smd": 0.0550236211944212
+  },
+  "encoders": [
+   {
+    "model": "BiomedCLIP",
+    "full_cohort_score_on_matched": 0.5366537708880051,
+    "ci": [
+     0.5032771510248988,
+     0.5693808673538403
+    ],
+    "full_cohort_score_on_matched_under6": 0.48621085894857796,
+    "ci_under6": [
+     0.4217807382935938,
+     0.5540110600402183
+    ],
+    "probe_within_matched": 0.5544283021760499,
+    "ci_within": [
+     0.5090132925718511,
+     0.5977346716085455
+    ]
+   },
+   {
+    "model": "TorchXRayVision",
+    "full_cohort_score_on_matched": 0.5262379496613732,
+    "ci": [
+     0.49054166779392006,
+     0.5573835096357619
+    ],
+    "full_cohort_score_on_matched_under6": 0.5225509910945132,
+    "ci_under6": [
+     0.4517326199367998,
+     0.5956011203677104
+    ],
+    "probe_within_matched": 0.5687128570011453,
+    "ci_within": [
+     0.5263605948290633,
+     0.6116600835069302
+    ]
+   },
+   {
+    "model": "RAD-DINO",
+    "full_cohort_score_on_matched": 0.5185095004914825,
+    "ci": [
+     0.48086893199505815,
+     0.557713794875957
+    ],
+    "full_cohort_score_on_matched_under6": 0.49209997127262284,
+    "ci_under6": [
+     0.42171610169491525,
+     0.5628483194484344
+    ],
+    "probe_within_matched": 0.5413792170548928,
+    "ci_within": [
+     0.49444624804985166,
+     0.5867069772475177
+    ]
+   },
+   {
+    "model": "ImageNet-DenseNet121",
+    "full_cohort_score_on_matched": 0.5058572085599112,
+    "ci": [
+     0.4661758605452299,
+     0.5463930146362578
+    ],
+    "full_cohort_score_on_matched_under6": 0.3967968974432634,
+    "ci_under6": [
+     0.332641482332663,
+     0.4626562051134731
+    ],
+    "probe_within_matched": 0.539016493971449,
+    "ci_within": [
+     0.49755949643337033,
+     0.5809243928613298
+    ]
+   }
+  ]
+ },
+ "A4_age_acquisition_matched": {
+  "criteria": "same CR/DX mode; age within 6 months; image width and height each within 10%",
+  "pairs": 316,
+  "pairs_case_under_6y": 113,
+  "balance": {
+   "modality_cr": 0.0,
+   "image_width_px": -0.036533982445821137,
+   "image_height_px": -0.004770441006129774,
+   "image_aspect": -0.07071354343900335,
+   "exam_days_since_min": 0.06801016043280438,
+   "sex_male": -0.4300343574159849,
+   "body_bbox_width_frac": -0.009910871653182112,
+   "body_bbox_height_frac": -0.015383997392293566,
+   "body_bbox_area_frac": -0.0058095283405851985,
+   "age_months": -0.013951901928337888
+  },
+  "encoders": [
+   {
+    "model": "BiomedCLIP",
+    "full_cohort_score_on_matched": 0.5273093254286172,
+    "ci": [
+     0.4925274895850024,
+     0.5609745533568338
+    ]
+   },
+   {
+    "model": "TorchXRayVision",
+    "full_cohort_score_on_matched": 0.5155023233456177,
+    "ci": [
+     0.48227522632590936,
+     0.548732675052075
+    ]
+   },
+   {
+    "model": "RAD-DINO",
+    "full_cohort_score_on_matched": 0.5067897772792822,
+    "ci": [
+     0.46475850224323023,
+     0.5450791639961544
+    ]
+   },
+   {
+    "model": "ImageNet-DenseNet121",
+    "full_cohort_score_on_matched": 0.49837766383592375,
+    "ci": [
+     0.4552848601986861,
+     0.5424936909149175
+    ]
+   }
+  ]
+ },
+ "A4b_age_acquisition_sex_matched": {
+  "criteria": "same CR/DX mode; age within 6 months; image width and height each within 10%; same sex",
+  "pairs": 257,
+  "pairs_case_under_6y": 104,
+  "balance": {
+   "age_months": -0.015779057768914542,
+   "sex_male": 0.0
+  },
+  "encoders": [
+   {
+    "model": "BiomedCLIP",
+    "full_cohort_score_on_matched": 0.5116201607897167,
+    "ci": [
+     0.4773539342003663,
+     0.5476097291404866
+    ]
+   },
+   {
+    "model": "TorchXRayVision",
+    "full_cohort_score_on_matched": 0.4944359490681161,
+    "ci": [
+     0.4549459492195189,
+     0.5329274478039031
+    ]
+   },
+   {
+    "model": "RAD-DINO",
+    "full_cohort_score_on_matched": 0.49239201199109756,
+    "ci": [
+     0.44849997728958807,
+     0.5393609290072522
+    ]
+   },
+   {
+    "model": "ImageNet-DenseNet121",
+    "full_cohort_score_on_matched": 0.4948295962088753,
+    "ci": [
+     0.44654688186043695,
+     0.5420695241411679
+    ]
+   }
+  ]
+ },
+ "image_size_vs_age": {
+  "DX": {
+   "n": 869,
+   "rho_age_image_height": 0.7833426668600304,
+   "rho_age_image_width": 0.8061802918325088
+  },
+  "CR": {
+   "n": 309,
+   "rho_age_image_height": 0.10173949073227877,
+   "rho_age_image_width": 0.07336099457113898
+  }
+ },
+ "A5_nonlinear": {
+  "age_subset": [
+   {
+    "model": "BiomedCLIP",
+    "age_linear_log": 0.5672466528162512,
+    "ci_linear": [
+     0.5351316510849492,
+     0.5978410664819943
+    ],
+    "age_spline": 0.5375000000000001,
+    "ci_spline": [
+     0.5063257444598338,
+     0.5692413290627886
+    ]
+   },
+   {
+    "model": "TorchXRayVision",
+    "age_linear_log": 0.5873759233610342,
+    "ci_linear": [
+     0.5556713123268698,
+     0.6194889052400738
+    ],
+    "age_spline": 0.5478935826408126,
+    "ci_spline": [
+     0.5166512292243768,
+     0.5806619344413666
+    ]
+   },
+   {
+    "model": "RAD-DINO",
+    "age_linear_log": 0.5458650738688827,
+    "ci_linear": [
+     0.5138033096722068,
+     0.5788088642659279
+    ],
+    "age_spline": 0.5029691828254848,
+    "ci_spline": [
+     0.47086644448291776,
+     0.5352067463065558
+    ]
+   },
+   {
+    "model": "ImageNet-DenseNet121",
+    "age_linear_log": 0.5484274007386889,
+    "ci_linear": [
+     0.5158036126500462,
+     0.5830394448291781
+    ],
+    "age_spline": 0.5281827100646352,
+    "ci_spline": [
+     0.4956243507617728,
+     0.5622794032779316
+    ]
+   }
+  ],
+  "full_cohort": [
+   {
+    "model": "BiomedCLIP",
+    "layer": "A",
+    "spline": 0.5476671675001744,
+    "ci_spline": [
+     0.5213181188235306,
+     0.5731135705055921
+    ]
+   },
+   {
+    "model": "TorchXRayVision",
+    "layer": "A",
+    "spline": 0.550531601969598,
+    "ci_spline": [
+     0.5256634742435176,
+     0.5750416753870007
+    ]
+   },
+   {
+    "model": "RAD-DINO",
+    "layer": "A",
+    "spline": 0.5278639398833194,
+    "ci_spline": [
+     0.5011209924208585,
+     0.5530602905667331
+    ]
+   },
+   {
+    "model": "ImageNet-DenseNet121",
+    "layer": "A",
+    "spline": 0.51509841222242,
+    "ci_spline": [
+     0.48983617746374164,
+     0.5404105220850918
+    ]
+   },
+   {
+    "model": "BiomedCLIP",
+    "layer": "A+G",
+    "spline": 0.522797295707305,
+    "ci_spline": [
+     0.4965281877636274,
+     0.5494326576766531
+    ]
+   },
+   {
+    "model": "TorchXRayVision",
+    "layer": "A+G",
+    "spline": 0.5319143397692001,
+    "ci_spline": [
+     0.5072475606492718,
+     0.5559876155639478
+    ]
+   },
+   {
+    "model": "RAD-DINO",
+    "layer": "A+G",
+    "spline": 0.5268143761082633,
+    "ci_spline": [
+     0.4999841211829667,
+     0.5516908857672695
+    ]
+   },
+   {
+    "model": "ImageNet-DenseNet121",
+    "layer": "A+G",
+    "spline": 0.49955174880440323,
+    "ci_spline": [
+     0.4748409775520383,
+     0.5245347246300757
+    ]
+   }
+  ]
+ },
+ "A6_single_detector": {
+  "n_hernia": 115,
+  "n_control": 42,
+  "min_detectable_auc_80pct_power": 0.643,
+  "null_se": 0.05221128176370743
+ }
+}

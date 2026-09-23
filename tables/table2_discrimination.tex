@@ -1,0 +1,12 @@
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{3}{c}{Primary cohort (n$=$1960)} & External (n$=$100) \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-5}
+Encoder & Per-fold AUC & AUC (95\% CI) & Balanced acc. & AUC (95\% CI) \\
+\midrule
+BiomedCLIP & 0.703 $\pm$ 0.024 & 0.709 (0.685--0.731) & 0.657 & 0.654 (0.549--0.756) \\
+TorchXRayVision & 0.695 $\pm$ 0.024 & 0.704 (0.681--0.728) & 0.642 & 0.714 (0.613--0.806) \\
+RAD-DINO & 0.630 $\pm$ 0.025 & 0.646 (0.621--0.670) & 0.594 & 0.508 (0.393--0.629) \\
+ImageNet-DenseNet121 & 0.630 $\pm$ 0.021 & 0.645 (0.620--0.670) & 0.595 & 0.577 (0.466--0.692) \\
+\bottomrule
+\end{tabular}

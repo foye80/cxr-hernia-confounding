@@ -1,0 +1,6 @@
+{
+  "unmasked_dir": "/scratch/hl106/foye/results",
+  "masked_dir": "/scratch/hl106/foye/results_masked",
+  "note": "Independent 609-image cohort (all 2025) from the same institution; the masked build lost 38 images during preprocessing, so n differs.",
+  "cv": "RepeatedStratifiedKFold(5x5), seed=42"
+}

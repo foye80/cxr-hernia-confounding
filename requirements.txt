@@ -1,0 +1,14 @@
+# analysis (CPU)
+numpy
+pandas
+scipy
+scikit-learn==1.6.1
+matplotlib
+opencv-python
+Pillow
+# embedding extraction (GPU)
+torch
+torchvision
+torchxrayvision
+open_clip_torch
+transformers

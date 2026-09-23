@@ -1,0 +1,185 @@
+{
+  "records": {
+    "n": 2020,
+    "by_label": {
+      "0": 1014,
+      "1": 1006
+    },
+    "unique_patient_id": 2020,
+    "unique_image_id": 2007,
+    "unique_child": 1993,
+    "image_id_with_multiple_records": {
+      "n_image_ids": 13,
+      "n_records": 26,
+      "record_count_distribution": {
+        "2": 13
+      },
+      "label_conflict": 2,
+      "sex_conflict": 1,
+      "side_conflict": 5
+    }
+  },
+  "files": {
+    "folder_0_label_1": {
+      "raw_jpg": 1003,
+      "prepared_jpg": 1001
+    },
+    "folder_1_label_0": {
+      "raw_jpg": 1011,
+      "prepared_jpg": 1008
+    }
+  },
+  "analysis_cohort": {
+    "n": 2009,
+    "by_label": {
+      "0": 1008,
+      "1": 1001
+    },
+    "unique_image_id": 2007,
+    "unique_child": 1993,
+    "metadata_rows_distribution": {
+      "1": 1998,
+      "2": 11
+    },
+    "metadata_conflict_true": 1,
+    "children_with_multiple_images": {
+      "n_children": 16,
+      "n_images": 32,
+      "images_per_child_distribution": {
+        "2": 16
+      },
+      "children_in_both_groups": 3
+    },
+    "missing_prepared_file": 0,
+    "byte_identical_groups": {
+      "n_groups": 2,
+      "n_images": 4,
+      "across_both_groups": 2
+    }
+  },
+  "clean_cohort": {
+    "rule": "drop if image_id has >1 clinical record (A), child has >1 analysed image (B), image is byte-identical to another (C), or the label disagrees with the diagnosis text of that admission (D)",
+    "n_dropped": 49,
+    "dropped_by_reason": {
+      "D": 6,
+      "A": 11,
+      "B": 27,
+      "ABC": 4,
+      "BD": 1
+    },
+    "dropped_by_label": {
+      "0": 29,
+      "1": 20
+    },
+    "n_kept": 1960,
+    "kept_by_label": {
+      "1": 981,
+      "0": 979
+    },
+    "kept_unique_child": 1960
+  },
+  "laterality_all_records": {
+    "n_children": 1006,
+    "side": {
+      "bilateral": 619,
+      "right": 231,
+      "left": 151,
+      "postop_only": 5
+    },
+    "side_original_parser": {
+      "bilateral": 624,
+      "right": 216,
+      "left": 165,
+      "unknown": 1
+    },
+    "sum_bilateral_right_left": 1001,
+    "repaired_sides": 1620,
+    "with_hydrocele": 219,
+    "with_cryptorchidism": 41,
+    "hernia_type": {
+      "indirect": 1006
+    }
+  },
+  "laterality_records_of_analysed_images": {
+    "n_children": 1006,
+    "side": {
+      "bilateral": 619,
+      "right": 231,
+      "left": 151,
+      "postop_only": 5
+    },
+    "side_original_parser": {
+      "bilateral": 624,
+      "right": 216,
+      "left": 165,
+      "unknown": 1
+    },
+    "sum_bilateral_right_left": 1001,
+    "repaired_sides": 1620,
+    "with_hydrocele": 219,
+    "with_cryptorchidism": 41,
+    "hernia_type": {
+      "indirect": 1006
+    }
+  },
+  "laterality_clean_cohort": {
+    "n_children": 981,
+    "side": {
+      "bilateral": 611,
+      "right": 224,
+      "left": 146
+    },
+    "side_original_parser": {
+      "bilateral": 613,
+      "right": 208,
+      "left": 160
+    },
+    "sum_bilateral_right_left": 981,
+    "repaired_sides": 1592,
+    "with_hydrocele": 210,
+    "with_cryptorchidism": 37,
+    "hernia_type": {
+      "indirect": 981
+    }
+  },
+  "label_doubt_records": {
+    "hernia_postop_only": 5,
+    "hernia_no_hernia_item": 0,
+    "control_with_current_inguinal_hernia": 2
+  },
+  "side_reclassified": {
+    "bilateral->left": 1,
+    "bilateral->postop_only": 2,
+    "bilateral->right": 3,
+    "left->bilateral": 1,
+    "left->right": 14,
+    "right->postop_only": 2,
+    "unknown->postop_only": 1
+  },
+  "side_parser_audit": {
+    "bilateral": {
+      "has_双侧": 624,
+      "has_左": 77,
+      "has_右": 90,
+      "n": 624
+    },
+    "left": {
+      "has_双侧": 0,
+      "has_左": 165,
+      "has_右": 34,
+      "n": 165
+    },
+    "right": {
+      "has_双侧": 0,
+      "has_左": 0,
+      "has_右": 216,
+      "n": 216
+    },
+    "unknown": {
+      "has_双侧": 0,
+      "has_左": 0,
+      "has_右": 0,
+      "n": 1
+    }
+  }
+}
