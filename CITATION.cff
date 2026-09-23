@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this code or derived results, please cite the associated manuscript."
+title: "Chest radiographs and pediatric inguinal hernia: a study of confounding"
+authors:
+  - family-names: Luo
+    given-names: Jin
+  - family-names: Liang
+    given-names: Hao
+  - family-names: He
+    given-names: Chaosheng
+  - family-names: Lin
+    given-names: Fang
+date-released: "2026-09-23"
+repository-code: "https://github.com/foye80/cxr-hernia-confounding"
