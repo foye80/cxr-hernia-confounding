@@ -118,6 +118,18 @@ for r in thr:
               r["balanced_accuracy_threshold_fitted_on_half"])
 if not all(abs(r["balanced_accuracy_at_model_threshold"] - 0.5) < 1e-9 for r in thr):
     fails.append("a fine-tuned model no longer sits at 0.500 on the external cohort")
+
+# the vision-language split predates the unit audit: report what that cost
+sp = json.loads((RES / "vlm_split_audit.json").read_text())
+for lab, v in [("training images later excluded", sp["splits"]["train"]["excluded_by_the_audit"]),
+               ("calibration images later excluded", sp["splits"]["calib"]["excluded_by_the_audit"]),
+               ("test images later excluded", sp["splits"]["test"]["excluded_by_the_audit"]),
+               ("children in the reported test set", sp["reported_internal_test"]["children"])]:
+    if str(v) not in tex:
+        fails.append(f"VLM split audit: {lab} ({v}) not in manuscript.tex")
+if sp["reported_internal_test"]["children_also_in_training"] or \
+        sp["reported_internal_test"]["children_also_in_calibration"]:
+    fails.append("a child of the reported VLM test set also appears in training")
 # the guard looks at the prose only: the generated tables legitimately hold
 # these values in their zero-shot columns
 prose = (BASE / "manuscript.tex").read_text() + (BASE / "supplementary.tex").read_text()

@@ -1,0 +1,29 @@
+{
+ "splits": {
+  "train": {
+   "images": 1607,
+   "in_analysis_cohort": 1565,
+   "excluded_by_the_audit": 42,
+   "children": 1595
+  },
+  "calib": {
+   "images": 201,
+   "in_analysis_cohort": 196,
+   "excluded_by_the_audit": 5,
+   "children": 201
+  },
+  "test": {
+   "images": 201,
+   "in_analysis_cohort": 199,
+   "excluded_by_the_audit": 2,
+   "children": 201
+  }
+ },
+ "reported_internal_test": {
+  "images": 199,
+  "children": 199,
+  "children_also_in_training": 0,
+  "children_also_in_calibration": 0
+ },
+ "any_child_in_both_train_and_test_split": 0
+}
