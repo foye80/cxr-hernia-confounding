@@ -1,0 +1,85 @@
+{
+ "note": "external cohort, fine-tuned models; the threshold is the only thing re-fitted, and it is fitted on labelled external images",
+ "n_splits": 200,
+ "seed": 42,
+ "models": [
+  {
+   "model": "HuatuoGPT-V-7B",
+   "n": 100,
+   "auc": 0.49040000000000006,
+   "balanced_accuracy_at_model_threshold": 0.5,
+   "predicted_hernia_rate": 0.0,
+   "p_hernia_min": 0.08479540782206828,
+   "p_hernia_max": 0.22303841721688147,
+   "best_threshold_in_hindsight": 0.13330235182147093,
+   "balanced_accuracy_at_best_threshold": 0.54,
+   "balanced_accuracy_threshold_fitted_on_half": 0.49186303089010536,
+   "sd_over_splits": 0.04078994713157152
+  },
+  {
+   "model": "InternVL",
+   "n": 100,
+   "auc": 0.40359999999999996,
+   "balanced_accuracy_at_model_threshold": 0.5,
+   "predicted_hernia_rate": 0.0,
+   "p_hernia_min": 0.22270014398423357,
+   "p_hernia_max": 0.4378234991142019,
+   "best_threshold_in_hindsight": 0.2689414096510108,
+   "balanced_accuracy_at_best_threshold": 0.51,
+   "balanced_accuracy_threshold_fitted_on_half": 0.47280119732413467,
+   "sd_over_splits": 0.04000994605003765
+  },
+  {
+   "model": "LLaVA-OneVision",
+   "n": 100,
+   "auc": 0.7303999999999999,
+   "balanced_accuracy_at_model_threshold": 0.5,
+   "predicted_hernia_rate": 0.0,
+   "p_hernia_min": 0.06011423238948973,
+   "p_hernia_max": 0.1334152172639784,
+   "best_threshold_in_hindsight": 0.0848333086432046,
+   "balanced_accuracy_at_best_threshold": 0.7,
+   "balanced_accuracy_threshold_fitted_on_half": 0.6811007256874566,
+   "sd_over_splits": 0.045481360906270446
+  },
+  {
+   "model": "MedGemma-4B-IT",
+   "n": 100,
+   "auc": 0.6696000000000001,
+   "balanced_accuracy_at_model_threshold": 0.5,
+   "predicted_hernia_rate": 0.0,
+   "p_hernia_min": 0.24508501313237172,
+   "p_hernia_max": 0.4378234991142019,
+   "best_threshold_in_hindsight": 0.2938095639024741,
+   "balanced_accuracy_at_best_threshold": 0.63,
+   "balanced_accuracy_threshold_fitted_on_half": 0.5954509543339261,
+   "sd_over_splits": 0.04738384962622201
+  },
+  {
+   "model": "Qwen2.5-VL",
+   "n": 100,
+   "auc": 0.7672,
+   "balanced_accuracy_at_model_threshold": 0.5,
+   "predicted_hernia_rate": 0.0,
+   "p_hernia_min": 0.07596093483562215,
+   "p_hernia_max": 0.24544655698700496,
+   "best_threshold_in_hindsight": 0.1476780597041612,
+   "balanced_accuracy_at_best_threshold": 0.78,
+   "balanced_accuracy_threshold_fitted_on_half": 0.7747940253449364,
+   "sd_over_splits": 0.04428689996880683
+  },
+  {
+   "model": "SmolVLM",
+   "n": 100,
+   "auc": 0.6424000000000001,
+   "balanced_accuracy_at_model_threshold": 0.5,
+   "predicted_hernia_rate": 0.0,
+   "p_hernia_min": 0.06014182645617337,
+   "p_hernia_max": 0.46879062662624377,
+   "best_threshold_in_hindsight": 0.22337706178344302,
+   "balanced_accuracy_at_best_threshold": 0.62,
+   "balanced_accuracy_threshold_fitted_on_half": 0.5668731437125136,
+   "sd_over_splits": 0.04570615247301373
+  }
+ ]
+}

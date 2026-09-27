@@ -5,6 +5,7 @@ Fails loudly if a claim in the prose no longer matches what the analysis
 produced. Run after any re-analysis.
 """
 
+import json
 import sys
 from pathlib import Path
 
@@ -106,6 +107,17 @@ if not (e2.single_class_output.all() and (e2.balanced_accuracy == 0.5).all()):
     fails.append("VLM external single-class claim no longer true")
 check("vlm external ft auc min", e2.auc.min())
 check("vlm external ft auc max", e2.auc.max())
+
+# re-fitting only the decision threshold on external images
+thr = json.loads((RES / "vlm_threshold.json").read_text())["models"]
+best = max(thr, key=lambda r: r["balanced_accuracy_threshold_fitted_on_half"])
+check("threshold refit, best model", best["balanced_accuracy_threshold_fitted_on_half"])
+for r in thr:
+    if r["auc"] < 0.55:
+        check(f"threshold refit, {r['model']} (near chance)",
+              r["balanced_accuracy_threshold_fitted_on_half"])
+if not all(abs(r["balanced_accuracy_at_model_threshold"] - 0.5) < 1e-9 for r in thr):
+    fails.append("a fine-tuned model no longer sits at 0.500 on the external cohort")
 # the guard looks at the prose only: the generated tables legitimately hold
 # these values in their zero-shot columns
 prose = (BASE / "manuscript.tex").read_text() + (BASE / "supplementary.tex").read_text()
@@ -124,7 +136,6 @@ for n in ["2089", "69", "2020", "2009", "49", "1960", "981", "979", "1800",
 
 
 # ---- de-identification audit and the age recovered from the overlay ----
-import json
 
 rep = json.loads((RES / "remask_report.json").read_text())["primary"]
 tl, tr = rep["rect"]["top_left"], rep["rect"]["top_right"]
