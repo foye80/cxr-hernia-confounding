@@ -278,6 +278,18 @@ for label, v in [("rho age vs image height, DX",
                   rev["image_size_vs_age"]["DX"]["rho_age_image_width"])]:
     check(label, v, nd=2)
 
+# the vision-language models ran on the earlier build; the manuscript must not
+# claim otherwise. `foye_vqa_items.csv` is the record of what they were given.
+vlm_items = pd.read_csv("/scratch/hl106/80_workspace/foye/vlm_qlora/data/foye_vqa_items.csv")
+vlm_roots = set(vlm_items[vlm_items.dataset == "foye_hernia"].image_path
+                .str.rsplit("/", n=2).str[0])
+if vlm_roots == {"/scratch/hl106/foye/ChestCR_prepared"}:
+    if "were fine-tuned and evaluated before the rebuild" not in manuscript_tex:
+        fails.append("the vision-language models ran on the originally masked images, "
+                     "and the manuscript no longer says so")
+elif vlm_roots != {"/scratch/hl106/foye/ChestCR_remasked"}:
+    fails.append(f"unexpected image root for the vision-language models: {vlm_roots}")
+
 # placeholders must not reach the submission
 for marker in ("XXGITHUBURLXX", "reviewnote", "CONFIRM", "TODO"):
     if marker in tex:
