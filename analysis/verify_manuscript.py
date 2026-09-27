@@ -253,12 +253,14 @@ for key in ("A2_age_matched", "A4_age_acquisition_matched",
         fails.append(f"{key}: pair count {blk['pairs']} missing from manuscript.tex")
     for r in blk["encoders"]:
         check(f"{key} {r['model']}", r["full_cohort_score_on_matched"])
-        check(f"{key} {r['model']} CI lo", r["ci"][0])
-        check(f"{key} {r['model']} CI hi", r["ci"][1])
-        # the probe retrained inside the matched set answers the other question
+        check(f"{key} {r['model']} CI lo", r["ci"][0], nd=2)
+        check(f"{key} {r['model']} CI hi", r["ci"][1], nd=2)
+        # the probe retrained inside the matched set answers the other question.
+        # Table 5 prints its intervals to two decimals so that the table fits
+        # inside the text block, so they are checked at that precision.
         check(f"{key} {r['model']} refit", r["probe_within_matched"])
-        check(f"{key} {r['model']} refit CI lo", r["ci_within"][0])
-        check(f"{key} {r['model']} refit CI hi", r["ci_within"][1])
+        check(f"{key} {r['model']} refit CI lo", r["ci_within"][0], nd=2)
+        check(f"{key} {r['model']} refit CI hi", r["ci_within"][1], nd=2)
 
 a5 = rev["A5_nonlinear"]
 for r in a5["age_subset"]:

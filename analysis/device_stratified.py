@@ -33,6 +33,12 @@ def probe(X, y, n_rep=5):
     lo, hi = boot_auc_ci(y, s, n_boot=2000)
     return roc_auc_score(y, s), lo, hi
 
+# The pooled row is the primary analysis, read from its own result file rather
+# than recomputed here: recomputing gave the same AUC but a slightly different
+# bootstrap interval, and two numbers for one quantity is one too many.
+POOLED = pd.read_csv(OUT_DIR_POOLED) if False else pd.read_csv(
+    "/scratch/hl106/80_workspace/foye/paper/results/pathway_auc.csv")
+
 strata = [("3001x3001 单机(方形探测器)", meta.sig == "3001x3001"),
           ("CR 模态全体", meta.modality_cr == 1),
           ("DX 模态全体", meta.modality_cr == 0),
@@ -42,6 +48,16 @@ rows = []
 for name, mask in strata:
     idx = np.flatnonzero(mask.to_numpy())
     y = y_all[idx]
+    if name.startswith("全队列"):
+        for k in ["biomedclip", "torchxrayvision", "rad-dino", "imagenet"]:
+            r = POOLED[(POOLED.pathway == "image") & (POOLED.nuisance_set == "none")
+                       & (POOLED.model_display == MODEL_DISPLAY[k])].iloc[0]
+            rows.append(dict(stratum=name, n=len(idx), n_hernia=int(y.sum()),
+                             model=MODEL_DISPLAY[k], auc=float(r.auc_oof_mean),
+                             ci_lo=float(r.auc_oof_ci_lo), ci_hi=float(r.auc_oof_ci_hi)))
+            print(f"  {MODEL_DISPLAY[k]:22s} {r.auc_oof_mean:.3f} "
+                  f"[{r.auc_oof_ci_lo:.3f}, {r.auc_oof_ci_hi:.3f}]  (from the primary analysis)")
+        continue
     print(f"\n{name}: n={len(idx)}  疝={int(y.sum())} 非疝={int((y==0).sum())}")
     for k in ["biomedclip", "torchxrayvision", "rad-dino", "imagenet"]:
         r = probe(emb[k][idx], y)

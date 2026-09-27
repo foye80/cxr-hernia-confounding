@@ -1,4 +1,4 @@
-\begin{tabular}{p{2.6cm}p{3.6cm}p{2.3cm}p{2.6cm}p{3.4cm}}
+\begin{tabular}{p{2.15cm}p{2.95cm}p{1.75cm}p{2.15cm}p{2.8cm}}
 \toprule
 Analysis & Question & Images & Controlled for & What it can show \\
 \midrule
@@ -11,7 +11,7 @@ Regression: sex & How much does sex account for? & 1960 & Sex & Share explained 
 Regression: acquisition & How much do acquisition proxies account for? & 1960 & 5 acquisition variables & Partial adjustment only; proxies, not DICOM \\
 Regression: age & How much does age account for? & Readable age & Age & Share explained by age, within this subset \\
 Regression: all proxies & What remains after every proxy? & 1960 & 29 variables & Lower bound; may remove a mediator \\
-Single detector unit & Does separation persist on one machine? & One detector & Equipment & Detects only large effects \\
+Fixed-matrix stratum & Does separation persist where the matrix is fixed? & Fixed-matrix subset & Matrix size, consistent with one detector & Detects only large effects \\
 Age matching & Does separation persist at equal age? & Readable age & Age by design & Residual at equal age \\
 Age and acquisition matching & Does anything remain when age and acquisition are both equal? & Readable age & Age, mode, image size (and sex) & Residual unexplained discrimination, by the fitted model and by a probe retrained inside the matched set \\
 \midrule

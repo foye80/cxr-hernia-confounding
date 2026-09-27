@@ -32,7 +32,9 @@ NICE = {
 
 
 def ci(a, lo, hi):
-    return f"{a:.3f} ({lo:.3f}--{hi:.3f})"
+    # two decimals inside the interval: the table is six columns wide and has to
+    # fit inside the text block, or the line-number ruler prints over it
+    return f"{a:.3f} ({lo:.2f}--{hi:.2f})"
 
 
 def write(name, body, cols, head):
@@ -64,17 +66,17 @@ def main():
         cells = " & ".join(ci(m[e][key], *m[e][cikey]) for e in ENC)
         return f"{label} & {pairs} ({u6}) & {cells} \\\\"
 
-    blocks = [("Age ($\\pm$3 months)", a2), ("Age and acquisition", a4),
+    blocks = [("Age ($\\pm$3 mo)", a2), ("Age and acquisition", a4),
               ("Age, acquisition and sex", a4s)]
-    rows.append("\\multicolumn{6}{l}{\\emph{(a) Score of the primary model, evaluated on the matched children}} \\\\")
+    rows.append("\\multicolumn{6}{l}{\\emph{(a) Score of the primary model, on the matched children}} \\\\")
     for label, blk in blocks:
         rows.append(row(label, blk["pairs"], blk["pairs_case_under_6y"], blk["encoders"],
                         "full_cohort_score_on_matched", "ci"))
-    rows.append(row("\\quad case under 6 years", a2["pairs_case_under_6y"],
+    rows.append(row("\\quad case under 6 y", a2["pairs_case_under_6y"],
                     a2["pairs_case_under_6y"], a2["encoders"],
                     "full_cohort_score_on_matched_under6", "ci_under6"))
     rows.append("\\addlinespace")
-    rows.append("\\multicolumn{6}{l}{\\emph{(b) Probe retrained inside the matched set, folds formed by pair}} \\\\")
+    rows.append("\\multicolumn{6}{l}{\\emph{(b) Probe retrained inside the matched set, folds by pair}} \\\\")
     for label, blk in blocks:
         rows.append(row(label, blk["pairs"], blk["pairs_case_under_6y"], blk["encoders"],
                         "probe_within_matched", "ci_within"))

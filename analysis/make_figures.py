@@ -265,7 +265,7 @@ def fig4_device():
     label = {order[0]: f"Pooled cohort\n(n = {C['n']})",
              order[1]: f"Digital radiography only\n(n = {C['n_dx']})",
              order[2]: f"Computed radiography only\n(n = {C['n_cr']})",
-             order[3]: f"Single detector unit\n(n = {C['n_sq']}; {C['n_sq_h']} / {C['n_sq_c']})"}
+             order[3]: f"Fixed-matrix stratum\n(n = {C['n_sq']}; {C['n_sq_h']} / {C['n_sq_c']})"}
     fig, ax = plt.subplots(figsize=(150 * MM, 86 * MM))
     y0 = 0.0
     ticks, ticklabels = [], []
