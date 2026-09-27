@@ -66,9 +66,13 @@ be changed. Everything except the embedding extraction runs on CPU.
 6. `analysis/make_tables.py`, `analysis/make_revision_tables.py`,
    `analysis/make_figures.py` and `analysis/make_figure_images.py` write the
    tables and figures.
-7. `analysis/verify_manuscript.py` checks every number asserted in the
-   manuscript against `results/`. It exits non-zero on any mismatch, and is the
-   reason no number in the paper was typed by hand.
+7. `analysis/verify_manuscript.py` compares the values quoted in the manuscript
+   and in the tables with `results/`, and exits non-zero on a mismatch. It
+   checks that a quoted value exists in the result files, and, for the numbers
+   the running text reports, that it is quoted in the running text and not only
+   in a table. It does not parse sentences, so it cannot tell that a correctly
+   copied number has been attached to the wrong experiment; two such errors were
+   found by hand and each one added a specific guard to the script.
 
 `rerun_clean.sh` and `rerun_primary.sh` run steps 5 and 6 in the order used for
 the published results.

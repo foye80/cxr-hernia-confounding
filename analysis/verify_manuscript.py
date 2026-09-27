@@ -15,10 +15,16 @@ BASE = Path("/scratch/hl106/80_workspace/foye/paper")
 RES = BASE / "results"
 FOYE = Path("/scratch/hl106/80_workspace/foye")
 
-# The submission is the manuscript, its generated tables, and Additional file 1.
-# A number is "reported" if it appears anywhere in that set.
-tex = "\n".join([(BASE / "manuscript.tex").read_text(),
-                 (BASE / "supplementary.tex").read_text()]
+# Two scopes. `tex` is the whole submission: manuscript, Additional file 1 and
+# every generated table, and it answers "is this number reported anywhere".
+# `prose` is the two hand-written files only. A number that the prose quotes has
+# to be checked against `prose`, because a correct table can otherwise hide a
+# wrong sentence: that is how a mis-rounded interval and a mis-attributed
+# balanced accuracy both survived an earlier run of this script.
+manuscript_tex = (BASE / "manuscript.tex").read_text()
+supplementary_tex = (BASE / "supplementary.tex").read_text()
+prose = manuscript_tex + "\n" + supplementary_tex
+tex = "\n".join([manuscript_tex, supplementary_tex]
                 + [f.read_text() for f in sorted((BASE / "tables").glob("*.tex"))])
 d = pd.read_csv(RES / "pathway_auc.csv")
 c = pd.read_csv(RES / "comparisons_c.csv")
@@ -37,20 +43,24 @@ def img(m, ns="none", col="auc_oof_mean"):
     return d[(d.pathway == "image") & (d.model_display == m) & (d.nuisance_set == ns)][col].iloc[0]
 
 
-def check(label, v, nd=3):
-    if f"{v:.{nd}f}" not in tex:
-        fails.append(f"{label}: {v:.{nd}f} not in manuscript.tex")
+def check(label, v, nd=3, where=None):
+    """`where=prose` for a number the running text quotes, so that a correct
+    table cannot cover a wrong sentence."""
+    hay = tex if where is None else where
+    if f"{v:.{nd}f}" not in hay:
+        scope = "the manuscript" if where is None else "the running text"
+        fails.append(f"{label}: {v:.{nd}f} not in {scope}")
 
 
-# primary discrimination, all encoders, with CI bounds
+# primary discrimination, all encoders, with CI bounds; the Results quote these
 for m in ENC:
     for col in ("auc_oof_mean", "auc_oof_ci_lo", "auc_oof_ci_hi"):
-        check(f"primary {m} {col}", img(m, "none", col))
+        check(f"primary {m} {col}", img(m, "none", col), where=prose)
 
-# external validation
+# external validation, also quoted in the Results
 for _, r in ext.iterrows():
     for v, lab in ((r.auc, "auc"), (r.ci_lo, "lo"), (r.ci_hi, "hi")):
-        check(f"external {r.model_display} {lab}", v)
+        check(f"external {r.model_display} {lab}", v, where=prose)
 
 # sensitivity layers
 for m in ENC:
@@ -111,7 +121,8 @@ check("vlm external ft auc max", e2.auc.max())
 # re-fitting only the decision threshold on external images
 thr = json.loads((RES / "vlm_threshold.json").read_text())["models"]
 best = max(thr, key=lambda r: r["balanced_accuracy_threshold_fitted_on_half"])
-check("threshold refit, best model", best["balanced_accuracy_threshold_fitted_on_half"])
+check("threshold refit, best model",
+      best["balanced_accuracy_threshold_fitted_on_half"], where=prose)
 for r in thr:
     if r["auc"] < 0.55:
         check(f"threshold refit, {r['model']} (near chance)",
@@ -168,9 +179,9 @@ for label, v in [("residual-text rate, hernia",
     check(label, v, nd=1)
 
 ag = json.loads((RES / "age_analysis_remasked.json").read_text())
-check("age alone AUC", ag["age_alone"]["auc"])
-check("age alone CI lo", ag["age_alone"]["ci"][0])
-check("age alone CI hi", ag["age_alone"]["ci"][1])
+check("age alone AUC", ag["age_alone"]["auc"], where=prose)
+check("age alone CI lo", ag["age_alone"]["ci"][0], where=prose)
+check("age alone CI hi", ag["age_alone"]["ci"][1], where=prose)
 for label, v in [("median age hernia", ag["age_alone"]["median_months_hernia"]),
                  ("median age control", ag["age_alone"]["median_months_control"])]:
     if str(int(v)) not in tex:
