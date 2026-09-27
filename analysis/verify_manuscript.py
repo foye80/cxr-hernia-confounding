@@ -100,8 +100,21 @@ for lab, v in [("zs min", zs.balanced_accuracy.min()), ("zs max", zs.balanced_ac
                ("ft bacc max", ftr.balanced_accuracy.max()),
                ("ft auc min", ftr.auc.min()), ("ft auc max", ftr.auc.max())]:
     check(f"vlm {lab}", v)
+# the external claim: the numbers quoted must be the fine-tuned ones, not the
+# zero-shot ones, and the single-answer behaviour must still hold
 if not (e2.single_class_output.all() and (e2.balanced_accuracy == 0.5).all()):
     fails.append("VLM external single-class claim no longer true")
+check("vlm external ft auc min", e2.auc.min())
+check("vlm external ft auc max", e2.auc.max())
+# the guard looks at the prose only: the generated tables legitimately hold
+# these values in their zero-shot columns
+prose = (BASE / "manuscript.tex").read_text() + (BASE / "supplementary.tex").read_text()
+zs2 = vlm[(vlm.condition == "zero_shot") & (vlm.test_set == "foye_center2")]
+for v, lab in ((zs2.auc.min(), "zero-shot external auc min"),
+               (zs2.balanced_accuracy.min(), "zero-shot external bacc min")):
+    if f"{v:.3f}" in prose:
+        fails.append(f"{lab} ({v:.3f}) appears in the text; check it is not "
+                     "being quoted as a fine-tuned result")
 
 # structural facts asserted in Methods
 for n in ["2089", "69", "2020", "2009", "49", "1960", "981", "979", "1800",
