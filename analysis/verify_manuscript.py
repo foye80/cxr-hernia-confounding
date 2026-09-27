@@ -208,6 +208,10 @@ for key in ("A2_age_matched", "A4_age_acquisition_matched",
         check(f"{key} {r['model']}", r["full_cohort_score_on_matched"])
         check(f"{key} {r['model']} CI lo", r["ci"][0])
         check(f"{key} {r['model']} CI hi", r["ci"][1])
+        # the probe retrained inside the matched set answers the other question
+        check(f"{key} {r['model']} refit", r["probe_within_matched"])
+        check(f"{key} {r['model']} refit CI lo", r["ci_within"][0])
+        check(f"{key} {r['model']} refit CI hi", r["ci_within"][1])
 
 a5 = rev["A5_nonlinear"]
 for r in a5["age_subset"]:
@@ -224,6 +228,11 @@ for label, v in [("rho age vs image height, DX",
                  ("rho age vs image width, DX",
                   rev["image_size_vs_age"]["DX"]["rho_age_image_width"])]:
     check(label, v, nd=2)
+
+# placeholders must not reach the submission
+for marker in ("XXGITHUBURLXX", "reviewnote", "CONFIRM", "TODO"):
+    if marker in tex:
+        fails.append(f"placeholder {marker} still in the manuscript")
 
 print(f"checked manuscript + supplementary + {len(list((BASE / 'tables').glob('*.tex')))} tables against results")
 if fails:

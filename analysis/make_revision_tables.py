@@ -50,21 +50,34 @@ def main():
     R = json.loads((RES / "revision_analyses.json").read_text())
 
     # ---------------- Table 5: matched comparisons ----------------
-    a2, a4, a4s = R["A2_age_matched"], R["A4_age_acquisition_matched"], R["A4b_age_acquisition_sex_matched"]
+    # Two estimands, and they answer different questions:
+    #   (a) the primary model's score evaluated on the matched children, which
+    #       asks whether the fitted predictor still separates them;
+    #   (b) a probe retrained inside the matched set, which asks whether any
+    #       difference is learnable once the groups are alike.
+    a2, a4, a4s = (R["A2_age_matched"], R["A4_age_acquisition_matched"],
+                   R["A4b_age_acquisition_sex_matched"])
     rows = []
 
-    def row(label, pairs, u6, d, key="full_cohort_score_on_matched", cikey="ci"):
+    def row(label, pairs, u6, d, key, cikey):
         m = {r["model"]: r for r in d}
         cells = " & ".join(ci(m[e][key], *m[e][cikey]) for e in ENC)
         return f"{label} & {pairs} ({u6}) & {cells} \\\\"
 
-    rows.append(row("Age ($\\pm$3 months)", a2["pairs"], a2["pairs_case_under_6y"], a2["encoders"]))
-    rows.append(row("\\quad case under 6 years", a2["pairs_case_under_6y"], a2["pairs_case_under_6y"],
-                    a2["encoders"], "full_cohort_score_on_matched_under6", "ci_under6"))
-    rows.append(row("\\quad probe refitted within pairs", a2["pairs"], a2["pairs_case_under_6y"],
-                    a2["encoders"], "probe_within_matched", "ci_within"))
-    rows.append(row("Age and acquisition", a4["pairs"], a4["pairs_case_under_6y"], a4["encoders"]))
-    rows.append(row("Age, acquisition and sex", a4s["pairs"], a4s["pairs_case_under_6y"], a4s["encoders"]))
+    blocks = [("Age ($\\pm$3 months)", a2), ("Age and acquisition", a4),
+              ("Age, acquisition and sex", a4s)]
+    rows.append("\\multicolumn{6}{l}{\\emph{(a) Score of the primary model, evaluated on the matched children}} \\\\")
+    for label, blk in blocks:
+        rows.append(row(label, blk["pairs"], blk["pairs_case_under_6y"], blk["encoders"],
+                        "full_cohort_score_on_matched", "ci"))
+    rows.append(row("\\quad case under 6 years", a2["pairs_case_under_6y"],
+                    a2["pairs_case_under_6y"], a2["encoders"],
+                    "full_cohort_score_on_matched_under6", "ci_under6"))
+    rows.append("\\addlinespace")
+    rows.append("\\multicolumn{6}{l}{\\emph{(b) Probe retrained inside the matched set, folds formed by pair}} \\\\")
+    for label, blk in blocks:
+        rows.append(row(label, blk["pairs"], blk["pairs_case_under_6y"], blk["encoders"],
+                        "probe_within_matched", "ci_within"))
     write("table5_matched", "\n".join(rows), "lccccc",
           ["Matched on & Pairs (case $<$6 y) & BiomedCLIP & TorchXRayVision & RAD-DINO & ImageNet-DN121 \\\\"])
 

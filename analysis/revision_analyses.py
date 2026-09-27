@@ -129,6 +129,22 @@ def greedy_pairs(case_idx, ctrl_idx, dist, caliper):
     return np.array(pairs, dtype=int).reshape(-1, 2)
 
 
+def refit_within_pairs(X, pairs, seed=SEED):
+    """Train and test a probe inside a matched set, with folds formed by pair,
+    and return one out-of-fold score per matched child. This answers a
+    different question from evaluating the primary model on the same children:
+    it asks whether any difference is learnable at equal age (and acquisition,
+    and sex), not whether the model we already fitted still separates them."""
+    idx = np.concatenate([pairs[:, 0], pairs[:, 1]])
+    y = np.r_[np.ones(len(pairs)), np.zeros(len(pairs))].astype(int)
+    groups = np.r_[np.arange(len(pairs)), np.arange(len(pairs))]
+    splits = []
+    for rep_i in range(5):
+        perm = np.random.default_rng(seed + rep_i).permutation(len(pairs))
+        splits += list(GroupKFold(n_splits=5).split(np.zeros(len(idx)), y, perm[groups]))
+    return idx, y, probe_oof(X[idx], y, splits)
+
+
 # ---------------------------------------------------------------- main
 def main():
     meta = pd.read_csv(PROXY_CSV)
@@ -236,14 +252,9 @@ def main():
                                      s[np.concatenate([ci_[u6], co_[u6]])]))
         ci_u6 = pair_boot_ci(ci_[u6], co_[u6], s)
         # (ii) a probe trained and tested inside the matched set, folds by pair
-        splits = []
-        for rep in range(5):
-            perm = np.random.default_rng(SEED + rep).permutation(len(pr))
-            g = perm[groups]
-            splits += list(GroupKFold(n_splits=5).split(np.zeros(len(idx)), ym, g))
-        s_in = probe_oof(emb[m][idx], ym, splits)
-        auc_ii = float(roc_auc_score(ym, s_in))
-        full = np.zeros(n); full[idx] = s_in
+        idx2, ym2, s_in = refit_within_pairs(emb[m], pr)
+        auc_ii = float(roc_auc_score(ym2, s_in))
+        full = np.zeros(n); full[idx2] = s_in
         ci_ii = pair_boot_ci(ci_, co_, full)
         r = {"model": DISPLAY[m],
              "full_cohort_score_on_matched": auc_i, "ci": ci_i,
@@ -281,8 +292,12 @@ def main():
         for m in MODELS:
             s = score[m]
             auc = float(roc_auc_score(np.r_[np.ones(len(pr4)), np.zeros(len(pr4))], s[np.r_[c4, k4]]))
+            idx4, ym4, s_in4 = refit_within_pairs(emb[m], pr4)
+            full4 = np.zeros(n); full4[idx4] = s_in4
             a4["encoders"].append({"model": DISPLAY[m], "full_cohort_score_on_matched": auc,
-                                   "ci": pair_boot_ci(c4, k4, s)})
+                                   "ci": pair_boot_ci(c4, k4, s),
+                                   "probe_within_matched": float(roc_auc_score(ym4, s_in4)),
+                                   "ci_within": pair_boot_ci(c4, k4, full4)})
         print(f"pairs {a4['pairs']} ({a4['pairs_case_under_6y']} case <6 y); "
               f"balance {({k: round(v, 3) for k, v in a4['balance'].items()})}")
         for r in a4["encoders"]:
@@ -305,8 +320,12 @@ def main():
     for m in MODELS:
         s = score[m]
         auc = float(roc_auc_score(np.r_[np.ones(len(pr4s)), np.zeros(len(pr4s))], s[np.r_[c4s, k4s]]))
+        idx4s, ym4s, s_in4s = refit_within_pairs(emb[m], pr4s)
+        full4s = np.zeros(n); full4s[idx4s] = s_in4s
         a4s["encoders"].append({"model": DISPLAY[m], "full_cohort_score_on_matched": auc,
-                                "ci": pair_boot_ci(c4s, k4s, s)})
+                                "ci": pair_boot_ci(c4s, k4s, s),
+                                "probe_within_matched": float(roc_auc_score(ym4s, s_in4s)),
+                                "ci_within": pair_boot_ci(c4s, k4s, full4s)})
     print(f"with sex: pairs {a4s['pairs']}")
     for r in a4s["encoders"]:
         print(f"  {r['model']:22s} {r['full_cohort_score_on_matched']:.3f} {np.round(r['ci'],3)}")
