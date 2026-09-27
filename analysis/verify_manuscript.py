@@ -284,7 +284,8 @@ vlm_items = pd.read_csv("/scratch/hl106/80_workspace/foye/vlm_qlora/data/foye_vq
 vlm_roots = set(vlm_items[vlm_items.dataset == "foye_hernia"].image_path
                 .str.rsplit("/", n=2).str[0])
 if vlm_roots == {"/scratch/hl106/foye/ChestCR_prepared"}:
-    if "were fine-tuned and evaluated before the rebuild" not in manuscript_tex:
+    flat = " ".join(manuscript_tex.split())      # the source is hard-wrapped
+    if "fine-tuned and evaluated before the rebuild" not in flat:
         fails.append("the vision-language models ran on the originally masked images, "
                      "and the manuscript no longer says so")
 elif vlm_roots != {"/scratch/hl106/foye/ChestCR_remasked"}:
