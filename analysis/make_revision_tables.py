@@ -83,6 +83,18 @@ def main():
     write("table5_matched", "\n".join(rows), "lccccc",
           ["Matched on & Pairs (case $<$6 y) & BiomedCLIP & TorchXRayVision & RAD-DINO & ImageNet-DN121 \\\\"])
 
+    # ---------------- Table S10: balance before and after matching ----------
+    order = list(R["balance_before_matching"].keys())
+    cols = [("Before matching", R["balance_before_matching"]),
+            ("Age", a2["balance_full"]),
+            ("Age, acquisition", a4["balance_full"]),
+            ("Age, acquisition, sex", a4s["balance_full"])]
+    lines = []
+    for v in order:
+        lines.append(v + " & " + " & ".join(f"{c[1][v]:+.3f}" for c in cols) + " \\\\")
+    write("tableS10_balance", "\n".join(lines), "lcccc",
+          ["Variable & " + " & ".join(c[0] for c in cols) + " \\\\"])
+
     # ---------------- Table S8: age missingness ----------------
     a1 = R["A1_age_missingness"]
     L = [f"Readable, hernia group & {a1['readable_hernia'][0]} / {a1['readable_hernia'][1]} "

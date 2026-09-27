@@ -311,7 +311,16 @@
      0.5809243928613298
     ]
    }
-  ]
+  ],
+  "balance_full": {
+   "Age, months": -0.00779549309163488,
+   "Male sex": -0.42939579559715346,
+   "CR mode": 0.006945743042630843,
+   "Image width": 0.020346806628317206,
+   "Image height": 0.11547059804804166,
+   "Image aspect": -0.2438842027755811,
+   "Days since first study": 0.0550236211944212
+  }
  },
  "A4_age_acquisition_matched": {
   "criteria": "same CR/DX mode; age within 6 months; image width and height each within 10%",
@@ -382,7 +391,16 @@
      0.5962511015862842
     ]
    }
-  ]
+  ],
+  "balance_full": {
+   "Age, months": -0.013951901928337888,
+   "Male sex": -0.4300343574159849,
+   "CR mode": 0.0,
+   "Image width": -0.036533982445821137,
+   "Image height": -0.004770441006129774,
+   "Image aspect": -0.07071354343900335,
+   "Days since first study": 0.06801016043280438
+  }
  },
  "A4b_age_acquisition_sex_matched": {
   "criteria": "same CR/DX mode; age within 6 months; image width and height each within 10%; same sex",
@@ -445,7 +463,25 @@
      0.577517827673394
     ]
    }
-  ]
+  ],
+  "balance_full": {
+   "Age, months": -0.015779057768914542,
+   "Male sex": 0.0,
+   "CR mode": 0.0,
+   "Image width": -0.018607438138579086,
+   "Image height": 0.006895049173791074,
+   "Image aspect": -0.06495503445456663,
+   "Days since first study": 0.05391668083138686
+  }
+ },
+ "balance_before_matching": {
+  "Age, months": -0.8926627194080003,
+  "Male sex": -0.41138534383331005,
+  "CR mode": 0.3797943948706298,
+  "Image width": -0.14469697546360535,
+  "Image height": -0.0618512718787973,
+  "Image aspect": -0.122034914458516,
+  "Days since first study": -0.0803011748681529
  },
  "image_size_vs_age": {
   "DX": {

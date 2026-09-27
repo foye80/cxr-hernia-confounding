@@ -269,6 +269,14 @@ for r in a5["full_cohort"]:
     if r["layer"] == "A":
         check(f"acquisition spline {r['model']}", r["spline"])
 
+# balance under each matched design (Table S10)
+for key, blk in [("before matching", rev["balance_before_matching"]),
+                 ("age", rev["A2_age_matched"]["balance_full"]),
+                 ("age+acquisition", rev["A4_age_acquisition_matched"]["balance_full"]),
+                 ("age+acquisition+sex", rev["A4b_age_acquisition_sex_matched"]["balance_full"])]:
+    for var, v in blk.items():
+        check(f"balance, {key}, {var}", abs(v))
+
 a6 = rev["A6_single_detector"]
 check("smallest detectable AUC in the single unit",
       a6["min_detectable_auc_80pct_power"])

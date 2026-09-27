@@ -145,6 +145,22 @@ def refit_within_pairs(X, pairs, seed=SEED):
     return idx, y, probe_oof(X[idx], y, splits)
 
 
+BALANCE_VARS = [("age_months", "Age, months"), ("sex_male", "Male sex"),
+                ("modality_cr", "CR mode"), ("image_width_px", "Image width"),
+                ("image_height_px", "Image height"), ("image_aspect", "Image aspect"),
+                ("exam_days_since_min", "Days since first study")]
+
+
+def balance_table(meta, age, case_idx, ctrl_idx):
+    """SMD between the two groups for the variables matching is meant to
+    balance. Called once for the unmatched groups and once per design."""
+    out = {}
+    for col, label in BALANCE_VARS:
+        v = age if col == "age_months" else meta[col].to_numpy(float)
+        out[label] = smd(v[case_idx], v[ctrl_idx])
+    return out
+
+
 # ---------------------------------------------------------------- main
 def main():
     meta = pd.read_csv(PROXY_CSV)
@@ -263,6 +279,7 @@ def main():
         a2["encoders"].append(r)
         print(f"  {r['model']:22s} full-cohort score on pairs {auc_i:.3f} {np.round(ci_i,3)} | "
               f"<6y {auc_u6:.3f} {np.round(ci_u6,3)} | within-matched probe {auc_ii:.3f} {np.round(ci_ii,3)}")
+    a2["balance_full"] = balance_table(meta, age, ci_, co_)
     out["A2_age_matched"] = a2
 
     # ============ A4 age + acquisition ============
@@ -302,6 +319,8 @@ def main():
               f"balance {({k: round(v, 3) for k, v in a4['balance'].items()})}")
         for r in a4["encoders"]:
             print(f"  {r['model']:22s} {r['full_cohort_score_on_matched']:.3f} {np.round(r['ci'],3)}")
+    if len(pr4):
+        a4["balance_full"] = balance_table(meta, age, c4, k4)
     out["A4_age_acquisition_matched"] = a4
 
     # A4b: the same, with sex matched as well (the A2 and A4 pairs leave sex
@@ -329,7 +348,11 @@ def main():
     print(f"with sex: pairs {a4s['pairs']}")
     for r in a4s["encoders"]:
         print(f"  {r['model']:22s} {r['full_cohort_score_on_matched']:.3f} {np.round(r['ci'],3)}")
+    a4s["balance_full"] = balance_table(meta, age, c4s, k4s)
     out["A4b_age_acquisition_sex_matched"] = a4s
+    # the same variables before any matching, among the children with an age
+    out["balance_before_matching"] = balance_table(
+        meta, age, np.flatnonzero(have & (y == 1)), np.flatnonzero(have & (y == 0)))
 
     # why acquisition variables stand in for the child: image size tracks age
     from scipy.stats import spearmanr
