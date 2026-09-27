@@ -145,7 +145,7 @@ def fig1_design():
         "age within 3 months",
         "+ CR/DX mode and image size",
         "+ sex"], VIOLET, "#efedf8")
-    box(31.0, 12.6, 33, "4  One detector unit", [
+    box(31.0, 12.6, 33, "4  Fixed-matrix stratum", [
         f"3001x3001, n = {C['n_sq']}",
         f"({C['n_sq_h']} hernia / {C['n_sq_c']} controls)"], AQUA, "#e7f7f1")
 
