@@ -132,7 +132,7 @@ def table4_device():
     LAB = {STRATA[0]: "Pooled cohort",
            STRATA[1]: "Digital radiography",
            STRATA[2]: "Computed radiography",
-           STRATA[3]: "Fixed-matrix stratum"}
+           STRATA[3]: "Single detector unit"}
     lines = []
     for st in STRATA:
         sub = s[s.stratum == st]

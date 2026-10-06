@@ -83,8 +83,11 @@ for v, lab in ((px29.auc_oof_mean, "mean"), (px29.auc_oof_ci_lo, "lo"), (px29.au
 # device stratification: the single-unit numbers must all appear
 single = dev[dev.stratum.str.startswith("3001")]
 for _, r in single.iterrows():
-    for v, lab in ((r.auc, "auc"), (r.ci_lo, "lo"), (r.ci_hi, "hi")):
-        check(f"device single {r.model} {lab}", v)
+    check(f"device single {r.model} auc", r.auc)
+    # the running text gives the range only; the per-encoder intervals are in
+    # Table 6, which prints them at two decimals
+    for val, lab in ((r.ci_lo, "lo"), (r.ci_hi, "hi")):
+        check(f"device single {r.model} {lab}", val, nd=2)
 
 # univariate group differences
 for feat in ["image_width_px", "thorax_p10_intensity"]:
@@ -292,8 +295,9 @@ vlm_items = pd.read_csv("/scratch/hl106/80_workspace/foye/vlm_qlora/data/foye_vq
 vlm_roots = set(vlm_items[vlm_items.dataset == "foye_hernia"].image_path
                 .str.rsplit("/", n=2).str[0])
 if vlm_roots == {"/scratch/hl106/foye/ChestCR_prepared"}:
-    flat = " ".join(manuscript_tex.split())      # the source is hard-wrapped
-    if "fine-tuned and evaluated before the rebuild" not in flat:
+    flat = " ".join((manuscript_tex + " " + supplementary_tex).split())
+    if "evaluated on the originally masked images, before the cohort was rebuilt" \
+            not in flat:
         fails.append("the vision-language models ran on the originally masked images, "
                      "and the manuscript no longer says so")
 elif vlm_roots != {"/scratch/hl106/foye/ChestCR_remasked"}:

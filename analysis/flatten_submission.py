@@ -38,7 +38,7 @@ OUT = BASE / "submission"
 ZIP = OUT / "manuscript_latex.zip"
 
 SUPPORT = ["bmcart.cls", "bmcart-biblio.sty", "bmc-mathphys.bst", "refs.bib"]
-FIGS = ["figure1_images", "figure1_design", "figure2_discrimination",
+FIGS = ["figure1_design", "figure1_images", "figure2_discrimination",
         "figure3_sensitivity", "figure4_device"]
 
 # Additional file 1 travels as its own archive: plain article class, no
@@ -67,7 +67,12 @@ def retarget_figures(tex: str, figs=None, prefix="Figure") -> str:
     Everything sits at the top level of the archive so the file compiles
     wherever it is unpacked, with no figures/ subdirectory to preserve.
     """
-    figs = FIGS if figs is None else figs
+    # take the order from the document itself, so renumbering a float in the
+    # manuscript cannot leave the archive's Figure{n}.pdf names behind
+    if figs is None:
+        figs = [m.group(1) for m in
+                re.finditer(r"\\includegraphics\[[^\]]*\]\{figures/([^}]+)\.pdf\}", tex)]
+        assert sorted(figs) == sorted(FIGS), f"unexpected figure set: {figs}"
     for i, name in enumerate(figs, start=1):
         old, new = f"figures/{name}.pdf", f"{prefix}{i}.pdf"
         assert tex.count(old) == 1, f"expected one reference to {old}"
@@ -234,7 +239,8 @@ def main():
                                "cover_letter.txt", "SUBMISSION_CHECKLIST.md",
                                "response_to_editor.pdf",
                                "response_to_reviewers.pdf",
-                               "manuscript_marked_up.pdf"}]
+                               "manuscript_marked_up.pdf",
+                               "Additional_file_1.pdf"}]
     if stale:
         trash.mkdir(parents=True, exist_ok=True)
         for p in stale:
