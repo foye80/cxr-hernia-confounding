@@ -96,7 +96,9 @@ comparisons, `results/patient_units.json` the unit audit, and
 ## Citation
 
 Please cite the article. If you use the code, cite this repository as well:
-DOI [10.5281/zenodo.22916391](https://doi.org/10.5281/zenodo.22916391).
+DOI [10.5281/zenodo.22916390](https://doi.org/10.5281/zenodo.22916390). That is
+the concept DOI and always resolves to the current version; each release also
+has its own version DOI.
 
 ## License
 
