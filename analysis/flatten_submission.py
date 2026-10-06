@@ -150,6 +150,10 @@ def build_supplementary_zip():
             shutil.copy(BASE / "figures" / f"{name}.pdf", tmp / f"FigureS{i}.pdf")
         build_and_check(tmp, stem="supplementary", want_bbl=False)
         shutil.copy(BASE / "supplementary.pdf", tmp / "Additional_file_1.pdf")
+        # the standalone PDF is what gets uploaded, so write it from the build
+        # that just happened: a leftover copy from an earlier run is the easiest
+        # wrong file to pick in the uploader
+        shutil.copy(BASE / "supplementary.pdf", OUT / "Additional_file_1.pdf")
         members = ["Additional_file_1.pdf", "supplementary.tex"] + \
                   [f"FigureS{i}.pdf" for i in range(1, len(SUPP_FIGS) + 1)]
         with zipfile.ZipFile(SUPP_ZIP, "w", zipfile.ZIP_DEFLATED) as z:
